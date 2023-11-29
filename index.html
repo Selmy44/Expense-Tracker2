@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        #expense-form {
+            margin-bottom: 20px;
+        }
+
+        #expense-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .expense-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ccc;
+            padding: 8px 0;
+        }
+
+        .expense-item button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="expense-form">
+        <label for="expense-name">Expense Name:</label>
+        <input type="text" id="expense-name">
+        <label for="expense-amount">Amount:</label>
+        <input type="number" id="expense-amount">
+        <button onclick="addExpense()">Add Expense</button>
+    </div>
+
+    <ul id="expense-list"></ul>
+
+    <script>
+        function addExpense() {
+            var nameInput = document.getElementById('expense-name');
+            var amountInput = document.getElementById('expense-amount');
+            var name = nameInput.value;
+            var amount = amountInput.value;
+
+            if (name && amount) {
+                var expenseList = document.getElementById('expense-list');
+
+                var li = document.createElement('li');
+                li.className = 'expense-item';
+                li.innerHTML = `
+                    <span>${name}: $${amount}</span>
+                    <button onclick="removeExpense(this)">Remove</button>
+                `;
+
+                expenseList.appendChild(li);
+
+                // Clear input fields
+                nameInput.value = '';
+                amountInput.value = '';
+            }
+        }
+
+        function removeExpense(button) {
+            var listItem = button.parentNode;
+            var expenseList = document.getElementById('expense-list');
+            expenseList.removeChild(listItem);
+        }
+    </script>
+
+</body>
+</html>
